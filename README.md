@@ -8,7 +8,7 @@ This is a customized version of the widget [user switcher](https://github.com/KD
 
 ### From openDesktop.org
 
-1. Go to https://www.opendesktop.org/p/998895/
+1. Go to **link not yet added**
 2. Click on the Files tab
 3. Click the Install button
 
