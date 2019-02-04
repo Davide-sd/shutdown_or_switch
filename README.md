@@ -4,6 +4,11 @@ Plasma 5 widget for quick accessing the leave options (shutdown, reboot, suspend
 
 This is a customized version of the widget [user switcher](https://github.com/KDE/kdeplasma-addons/tree/master/applets/userswitcher) created by Kai Uwe Broulik.
 
+## TODO
+
+1. Adjust the `FullRepresentation.qml` and `ListDelegate.qml` to an horizontal orientation when the plasmoid form factor is vertical.
+2. Adjust the width of the `ListDelegate` elements based on the labels width.
+
 ## Installation
 
 ### From openDesktop.org
