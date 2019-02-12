@@ -13,7 +13,7 @@ This is a customized version of the widget [user switcher](https://github.com/KD
 
 ### From openDesktop.org
 
-1. Go to **link not yet added**
+1. Go to **[Opend Desktop](https://www.opendesktop.org/p/1288430/)**
 2. Click on the Files tab
 3. Click the Install button
 
