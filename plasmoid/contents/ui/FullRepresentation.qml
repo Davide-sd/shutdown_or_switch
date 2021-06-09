@@ -86,8 +86,11 @@ Item {
                                             + (showUsers ? currentUserItem.height + userList.contentHeight + units.smallSpacing : 0)
                                             + (newSessionButton.visible ? newSessionButton.height : 0)
                                             + (lockScreenButton.visible ? lockScreenButton.height : 0)
-                                            + rebootButton.height
-                                            + leaveButton.height
+                                            + (rebootButton.visible ? rebootButton.height : 0)
+                                            + (shutdownButton.visible ? shutdownButton.height : 0)
+                                            + (suspendButton.visible ? suspendButton.height : 0)
+                                            + (hybernateButton.visible ? hybernateButton.height : 0)
+                                            + (leaveButton.visible ? leaveButton.height : 0)
 
         anchors.fill: parent
         spacing: 0
@@ -185,8 +188,48 @@ Item {
             text: i18nc("Restart", "Reboot...")
             highlight: delegateHighlight
             icon: "system-reboot"
+            visible: showRestart
             onClicked: {
                 executable.exec("qdbus org.kde.ksmserver /KSMServer logout 0 1 3");
+            }
+            usesPlasmaTheme: usesPlasmaThemeListIcon_sett
+            iconSize: ExternalJS.getIconSize(widgetListIconSize)
+        }
+
+        ListDelegate {
+            id: shutdownButton
+            text: i18n("Shutdown")
+            icon: "system-shutdown"
+            highlight: delegateHighlight
+            visible: showShutdown
+            onClicked: {
+                executable.exec('qdbus org.kde.ksmserver /KSMServer logout 0 2 2');
+            }
+            usesPlasmaTheme: usesPlasmaThemeListIcon_sett
+            iconSize: ExternalJS.getIconSize(widgetListIconSize)
+        }
+
+        ListDelegate {
+            id: suspendButton
+            text: i18n("Suspend")
+            icon: "system-suspend"
+            highlight: delegateHighlight
+            visible: showSuspend
+            onClicked: {
+                executable.exec('qdbus org.kde.Solid.PowerManagement /org/freedesktop/PowerManagement Suspend');
+            }
+            usesPlasmaTheme: usesPlasmaThemeListIcon_sett
+            iconSize: ExternalJS.getIconSize(widgetListIconSize)
+        }
+
+        ListDelegate {
+            id: hybernateButton
+            text: i18n("Hybernate")
+            icon: "system-suspend-hibernate"
+            highlight: delegateHighlight
+            visible: showHybernate
+            onClicked: {
+                executable.exec('qdbus org.kde.Solid.PowerManagement /org/freedesktop/PowerManagement Hibernate');
             }
             usesPlasmaTheme: usesPlasmaThemeListIcon_sett
             iconSize: ExternalJS.getIconSize(widgetListIconSize)
@@ -196,7 +239,8 @@ Item {
             id: leaveButton
             text: i18nc("Show a dialog with options to logout/shutdown/restart", "Leave...")
             highlight: delegateHighlight
-            icon: "system-shutdown"
+            icon: "arrow-right"
+            visible: showExit
             onClicked: pmEngine.performOperation("requestShutDown")
             usesPlasmaTheme: usesPlasmaThemeListIcon_sett
             iconSize: ExternalJS.getIconSize(widgetListIconSize)

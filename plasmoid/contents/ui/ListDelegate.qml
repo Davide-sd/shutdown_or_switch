@@ -56,7 +56,7 @@ Item {
 
     Layout.fillWidth: isVertical ? undefined : true
     Layout.preferredWidth: {
-        console.log("## ASD: " + label.width + " - " + asdGrid.width)
+        // console.log("## ASD: " + label.width + " - " + asdGrid.width)
         return isVertical ? iconSize * 8 : undefined
     }
     Layout.minimumHeight: units.iconSizes.tiny + fixedHeight

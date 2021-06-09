@@ -49,6 +49,11 @@ Item {
     readonly property bool usesPlasmaThemeListIcon_sett: plasmoid.configuration.usesPlasmaThemeListIcon
     readonly property bool showNewSession: plasmoid.configuration.showNewSession
     readonly property bool showLockScreen: plasmoid.configuration.showLockScreen
+    readonly property bool showRestart: plasmoid.configuration.showRestart
+    readonly property bool showShutdown: plasmoid.configuration.showShutdown
+    readonly property bool showSuspend: plasmoid.configuration.showSuspend
+    readonly property bool showHybernate: plasmoid.configuration.showHybernate
+    readonly property bool showExit: plasmoid.configuration.showExit
     readonly property bool showUsers: plasmoid.configuration.showUsers
     readonly property bool leaveDirectly: plasmoid.configuration.leaveDirectly
     readonly property int fontSize: plasmoid.configuration.fontSize

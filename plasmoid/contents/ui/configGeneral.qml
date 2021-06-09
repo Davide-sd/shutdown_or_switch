@@ -38,6 +38,11 @@ ColumnLayout {
     property alias cfg_showTechnicalInfo: showTechnicalInfoCheck.checked
     property alias cfg_showNewSession: showNewSession.checked
     property alias cfg_showLockScreen: showLockScreen.checked
+    property alias cfg_showRestart: showRestart.checked
+    property alias cfg_showShutdown: showShutdown.checked
+    property alias cfg_showSuspend: showSuspend.checked
+    property alias cfg_showHybernate: showHybernate.checked
+    property alias cfg_showExit: showExit.checked
     property alias cfg_showUsers: showUsers.checked
     property alias cfg_leaveDirectly: leaveDirectly.checked
     property alias cfg_icon: icon.text
@@ -178,6 +183,11 @@ ColumnLayout {
             }
 
             QtControls.CheckBox {
+                id: showUsers
+                text: i18n("Show Users menu entry")
+            }
+
+            QtControls.CheckBox {
                 id: showNewSession
                 text: i18n("Show New Session menu entry")
             }
@@ -188,8 +198,28 @@ ColumnLayout {
             }
 
             QtControls.CheckBox {
-                id: showUsers
-                text: i18n("Show Users menu entry")
+                id: showRestart
+                text: i18n("Show Restart menu entry")
+            }
+
+            QtControls.CheckBox {
+                id: showShutdown
+                text: i18n("Show Shutdown menu entry")
+            }
+
+            QtControls.CheckBox {
+                id: showSuspend
+                text: i18n("Show Suspend menu entry")
+            }
+
+            QtControls.CheckBox {
+                id: showHybernate
+                text: i18n("Show Hybernate menu entry")
+            }
+
+            QtControls.CheckBox {
+                id: showExit
+                text: i18n("Show Exit Window menu entry")
             }
         }
     }

@@ -30,6 +30,21 @@
         <entry name="showLockScreen" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="showRestart" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showShutdown" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showSuspend" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="showHybernate" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="showExit" type="Bool">
+            <default>false</default>
+        </entry>
         <entry name="showNewSession" type="Bool">
             <default>true</default>
         </entry>
