@@ -24,7 +24,7 @@
             "Plasma/Applet"
         ],
         "Version": "1.1",
-        "Website": "https://github.com/Davide-sd"
+        "Website": "https://github.com/Davide-sd/shutdown_or_switch"
     },
     "X-Plasma-API": "declarativeappletscript",
     "X-Plasma-MainScript": "ui/main.qml"
