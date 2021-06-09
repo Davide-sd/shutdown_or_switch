@@ -14,12 +14,14 @@
         "Description": "Quickly switch between different users and access shutdown options",
         "Description[en-GB]": "Quickly switch between different users and access shutdown options",
         "Description[it]": "Accedi alle opzioni di spegnimento o di cambio utente",
+        "Description[nl]": "Wissel snel van gebruiker of kies één van de afsluitopties"
         "Icon": "system-shutdown",
         "Id": "org.kde.shutdownOrSwitch",
         "License": "GPL-2.0+",
         "Name": "Shutdown or Switch",
         "Name[en_GB]": "Shutdown or Switch",
         "Name[it]": "Spegni o cambia utente",
+        "Name[nl]": "Afsluiten of gebruiker wisselen",
         "ServiceTypes": [
             "Plasma/Applet"
         ],
