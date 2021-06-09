@@ -34,6 +34,31 @@ import "js/index.js" as ExternalJS
 
 
 Item {
+    PlasmaCore.DataSource {
+            id: executable
+            engine: "executable"
+            connectedSources: []
+            property var callbacks: ({})
+            onNewData: {
+                var stdout = data["stdout"]
+
+                if (callbacks[sourceName] !== undefined) {
+                    callbacks[sourceName](stdout);
+                }
+
+                exited(sourceName, stdout)
+                disconnectSource(sourceName) // exec finished
+            }
+
+            function exec(cmd, onNewDataCallback) {
+                if (onNewDataCallback !== undefined){
+                    callbacks[cmd] = onNewDataCallback
+                }
+                connectSource(cmd)
+            }
+            signal exited(string sourceName, string stdout)
+    }
+
     readonly property bool showText: plasmoid.configuration.showText
     readonly property int margins: plasmoid.configuration.margins
     property real fixedWidth: ExternalJS.getIconSize(widgetListIconSize) + 2 * margins
@@ -61,6 +86,7 @@ Item {
                                             + (showUsers ? currentUserItem.height + userList.contentHeight + units.smallSpacing : 0)
                                             + (newSessionButton.visible ? newSessionButton.height : 0)
                                             + (lockScreenButton.visible ? lockScreenButton.height : 0)
+                                            + rebootButton.height
                                             + leaveButton.height
 
         anchors.fill: parent
@@ -154,6 +180,18 @@ Item {
             iconSize: ExternalJS.getIconSize(widgetListIconSize)
         }
 
+        ListDelegate {
+            id: rebootButton
+            text: i18nc("Restart", "Reboot...")
+            highlight: delegateHighlight
+            icon: "system-reboot"
+            onClicked: {
+                executable.exec("qdbus org.kde.ksmserver /KSMServer logout 0 1 3");
+            }
+            usesPlasmaTheme: usesPlasmaThemeListIcon_sett
+            iconSize: ExternalJS.getIconSize(widgetListIconSize)
+        }
+        
         ListDelegate {
             id: leaveButton
             text: i18nc("Show a dialog with options to logout/shutdown/restart", "Leave...")
