@@ -17,7 +17,7 @@
         "Description[it]": "Accedi alle opzioni di spegnimento o di cambio utente",
         "Description[nl]": "Wissel snel van gebruiker of kies één van de afsluitopties",
         "Icon": "system-shutdown",
-        "Id": "shutdown_or_switch",
+        "Id": "org.kde.plasma.shutdownorswitch",
         "License": "GPL-2.0+",
         "Name": "Shutdown or Switch",
         "Name[en_GB]": "Shutdown or Switch",
