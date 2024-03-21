@@ -5,82 +5,49 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name=""/>
 
-    <group name="General">
-        <entry name="showFace" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showName" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showFullName" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showTechnicalInfo" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="icon" type="String">
-            <default>system-shutdown</default>
-        </entry>
-        <entry name="widgetIconSize" type="int">
-            <default>0</default>
-        </entry>
-        <entry name="widgetListIconSize" type="int">
-            <default>2</default>
-        </entry>
-        <entry name="showLockScreen" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showRestart" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showShutdown" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showSuspend" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="showHybernate" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="showExit" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="showNewSession" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="showUsers" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="leaveDirectly" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="fontSize" type="int">
-            <default>100</default>
-        </entry>
-    </group>
-
-    <group name="Appearance">
-        <entry name="usesPlasmaTheme" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="usesPlasmaThemeListIcon" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="widgetIconSize" type="int">
-            <default>0</default>
-        </entry>
-        <entry name="widgetListIconSize" type="int">
-            <default>0</default>
-        </entry>
-        <entry name="textUnderIcon" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="showText" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="margins" type="int">
-            <default>10</default>
-        </entry>
-    </group>
+  <group name="General">
+    <entry name="showIcon" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showName" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="showFullName" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="icon" type="String">
+        <default>system-shutdown</default>
+    </entry>
+    <entry name="showLockScreen" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="showLogOut" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="showRestart" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="showShutdown" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="showSuspend" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="showHybernate" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="showLogOut" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="showNewSession" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="showUsers" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="showText" type="Bool">
+        <default>true</default>
+    </entry>
+  </group>
 
 </kcfg>

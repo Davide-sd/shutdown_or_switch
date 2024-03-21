@@ -1,178 +1,262 @@
-﻿/*
- *  Copyright 2019 Davide Sandona' <sandona.davide@gmail.com>
- *  Copyright 2015 Kai Uwe Broulik <kde@privat.broulik.de>
+/*
+ *  SPDX-FileCopyrightText: 2024 Davide Sandonà <sandona.davide@gmail.com>
+ *  SPDX-FileCopyrightText: 2015 Kai Uwe Broulik <kde@privat.broulik.de>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *  SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import QtQuick 2.2
-import QtQuick.Controls 1.1 as QtControls
-import QtQuick.Layouts 1.1
-import QtQuick.Window 2.1
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.kcoreaddons 1.0 as KCoreAddons // kuser
-import org.kde.kquickcontrolsaddons 2.0 // kcmshell
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.components as KirigamiComponents
+import org.kde.config as KConfig  // KAuthorized.authorizeControlModule
+import org.kde.coreaddons as KCoreAddons // kuser
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasmoid
 
-import org.kde.plasma.private.sessions 2.0 as Sessions
+import org.kde.plasma.private.sessions as Sessions
 
-import "js/index.js" as ExternalJS
-
-Item {
+PlasmoidItem {
     id: root
 
-    readonly property bool isVertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
+    // from configuration
+    readonly property bool showIcon: Plasmoid.configuration.showIcon
+    readonly property bool showName: Plasmoid.configuration.showName
+    readonly property bool showFullName: Plasmoid.configuration.showFullName
+    readonly property bool showLockScreen: Plasmoid.configuration.showLockScreen
+    readonly property bool showLogOut: Plasmoid.configuration.showLogOut
+    readonly property bool showRestart: Plasmoid.configuration.showRestart
+    readonly property bool showShutdown: Plasmoid.configuration.showShutdown
+    readonly property bool showSuspend: Plasmoid.configuration.showSuspend
+    readonly property bool showHybernate: Plasmoid.configuration.showHybernate
+    readonly property bool showNewSession: Plasmoid.configuration.showNewSession
+    readonly property bool showUsers: Plasmoid.configuration.showUsers
+    readonly property bool showText: Plasmoid.configuration.showText
 
+    readonly property bool isVertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
+    readonly property bool inPanel: (Plasmoid.location === PlasmaCore.Types.TopEdge
+        || Plasmoid.location === PlasmaCore.Types.RightEdge
+        || Plasmoid.location === PlasmaCore.Types.BottomEdge
+        || Plasmoid.location === PlasmaCore.Types.LeftEdge)
+    
+    readonly property string avatarIcon: kuser.faceIconUrl.toString()
     readonly property string displayedName: showFullName ? kuser.fullName : kuser.loginName
 
-    readonly property string icon_sett: plasmoid.configuration.icon
-    readonly property int widgetIconSize: plasmoid.configuration.widgetIconSize
-    readonly property int widgetListIconSize: plasmoid.configuration.widgetListIconSize
-    readonly property bool showFace: plasmoid.configuration.showFace
-    readonly property bool showName: plasmoid.configuration.showName
-    readonly property bool showFullName: plasmoid.configuration.showFullName
-    readonly property bool usesPlasmaTheme_sett: plasmoid.configuration.usesPlasmaTheme
-    readonly property bool usesPlasmaThemeListIcon_sett: plasmoid.configuration.usesPlasmaThemeListIcon
-    readonly property bool showNewSession: plasmoid.configuration.showNewSession
-    readonly property bool showLockScreen: plasmoid.configuration.showLockScreen
-    readonly property bool showRestart: plasmoid.configuration.showRestart
-    readonly property bool showShutdown: plasmoid.configuration.showShutdown
-    readonly property bool showSuspend: plasmoid.configuration.showSuspend
-    readonly property bool showHybernate: plasmoid.configuration.showHybernate
-    readonly property bool showExit: plasmoid.configuration.showExit
-    readonly property bool showUsers: plasmoid.configuration.showUsers
-    readonly property bool leaveDirectly: plasmoid.configuration.leaveDirectly
-    readonly property int fontSize: plasmoid.configuration.fontSize
+    // switchWidth: Kirigami.Units.gridUnit * 10
+    // switchHeight: Kirigami.Units.gridUnit * 12
 
-    // TTY number and X display
-    readonly property bool showTechnicalInfo: plasmoid.configuration.showTechnicalInfo
+    toolTipTextFormat: Text.StyledText
+    toolTipSubText: i18n("You are logged in as <b>%1</b>", displayedName)
 
-    Plasmoid.switchWidth: units.gridUnit * 10
-    Plasmoid.switchHeight: units.gridUnit * 12
-
-    Plasmoid.toolTipTextFormat: Text.StyledText
-    Plasmoid.toolTipMainText: {
-        if (leaveDirectly)
-            return i18n("Leave")
-        else {
-            if (showUsers)
-                return i18n("Leave or Switch")
-            else
-                return i18n("Leave")
-        }
-    }
-    Plasmoid.toolTipSubText: {
-        if (leaveDirectly)
-            return i18n("Launch Leave options dialog")
-        else {
-            if (showUsers)
-                return i18n("You are logged in as <b>%1</b>", displayedName)
-            else
-                return i18n("Shows Leave options")
-        }
-    }
-
-    Binding {
-        target: plasmoid
-        property: "icon"
-        value: kuser.faceIconUrl
-        // revert to the plasmoid icon if no face given
-        when: kuser.faceIconUrl.toString() !== ""
-    }
+    // revert to the Plasmoid icon if no face given
+    Plasmoid.icon: kuser.faceIconUrl.toString() || (inPanel ? "system-switch-user-symbolic" : "preferences-system-users" )
 
     KCoreAddons.KUser {
         id: kuser
     }
 
-    PlasmaCore.DataSource {
-        id: pmEngine
-        engine: "powermanagement"
-        connectedSources: ["PowerDevil", "Sleep States"]
-
-        function performOperation(what) {
-            var service = serviceForSource("PowerDevil")
-            var operation = service.operationDescription(what)
-            service.startOperationCall(operation)
-        }
-    }
-
-    Plasmoid.compactRepresentation: MouseArea {
+    compactRepresentation: MouseArea {
         id: compactRoot
 
         // Taken from DigitalClock to ensure uniform sizing when next to each other
-        readonly property bool tooSmall: plasmoid.formFactor === PlasmaCore.Types.Horizontal && Math.round(2 * (compactRoot.height / 5)) <= theme.smallestFont.pixelSize
+        readonly property bool tooSmall: Plasmoid.formFactor === PlasmaCore.Types.Horizontal && Math.round(2 * (compactRoot.height / 5)) <= Kirigami.Theme.smallFont.pixelSize
 
         Layout.minimumWidth: isVertical ? 0 : compactRow.implicitWidth
         Layout.maximumWidth: isVertical ? Infinity : Layout.minimumWidth
-        Layout.preferredWidth: isVertical ? undefined : Layout.minimumWidth
+        Layout.preferredWidth: isVertical ? -1 : Layout.minimumWidth
 
-        Layout.minimumHeight: isVertical ? units.iconSizes.tiny + label.height + units.smallSpacing : theme.smallestFont.pixelSize
-        Layout.maximumHeight: isVertical ? units.iconSizes.enormous + label.height + units.smallSpacing : Infinity
-        Layout.preferredHeight: isVertical ? compactRoot.Width  : theme.mSize(theme.defaultFont).height * 2
+        Layout.minimumHeight: isVertical ? label.height : Kirigami.Theme.smallFont.pixelSize
+        Layout.maximumHeight: isVertical ? Layout.minimumHeight : Infinity
+        Layout.preferredHeight: isVertical ? Layout.minimumHeight : Kirigami.Units.iconSizes.sizeForLabels * 2
 
-        onClicked: {
-            if (!leaveDirectly) plasmoid.expanded = !plasmoid.expanded
-            else {
-                pmEngine.performOperation("requestShutDown")
-            }
-        }
+        property bool wasExpanded
+        onPressed: wasExpanded = root.expanded
+        onClicked: root.expanded = !wasExpanded
 
-        GridLayout {
+        Row {
             id: compactRow
-            anchors.centerIn: parent
-            flow: isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
-            rowSpacing: 0
-            columnSpacing: units.smallSpacing
 
-            PlasmaCore.IconItem {
-                id: icon
-                anchors.verticalCenter: isVertical ? undefined : parent.verticalCenter
-                anchors.horizontalCenter: isVertical ? parent.horizontalCenter : undefined
-                Layout.minimumWidth: units.iconSizes.tiny
-                Layout.minimumHeight: units.iconSizes.tiny
-                Layout.maximumWidth: units.iconSizes.enormous
-                Layout.maximumHeight: units.iconSizes.enormous
-                Layout.preferredWidth: ExternalJS.getIconSize(widgetIconSize, compactRoot)
-                Layout.preferredHeight: Layout.preferredWidth
-                source: visible ? (icon_sett || kuser.faceIconUrl.toString() || "user-identity") : ""
-                visible: root.showFace
-                usesPlasmaTheme: usesPlasmaTheme_sett
+            anchors.centerIn: parent
+            spacing: Kirigami.Units.smallSpacing
+
+            Kirigami.Icon {
+                id: shutdownIcon
+                source: "system-shutdown"
+                anchors.verticalCenter: parent.verticalCenter
+                height: compactRoot.height - Math.round(Kirigami.Units.smallSpacing / 2)
+                width: height
+                visible: root.showIcon
             }
 
             PlasmaComponents.Label {
                 id: label
-                Layout.fillWidth: isVertical ? true : undefined
+                width: root.isVertical ? compactRoot.width : contentWidth
+                height: root.isVertical ? contentHeight : compactRoot.height
                 text: root.displayedName
-                height: compactRoot.height
+                textFormat: Text.PlainText
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.NoWrap
-                fontSizeMode: isVertical ? Text.HorizontalFit : undefined
-                font.pixelSize: {
-                    if (isVertical)
-                        return undefined
-                    else
-                        return tooSmall ? theme.defaultFont.pixelSize : units.roundToIconSize(units.gridUnit * 2) * fontSize / 100
-                }
-                minimumPointSize: theme.smallestFont.pointSize
+                fontSizeMode: root.isVertical ? Text.HorizontalFit : Text.VerticalFit
+                font.pixelSize: tooSmall ? Kirigami.Theme.defaultFont.pixelSize : Kirigami.Units.iconSizes.roundedIconSize(Kirigami.Units.gridUnit * 2)
+                minimumPointSize: Kirigami.Theme.smallFont.pointSize
                 visible: root.showName
             }
         }
     }
 
-    Plasmoid.fullRepresentation: FullRepresentation {}
+    fullRepresentation: Item {
+        id: fullRoot
+
+        implicitHeight: column.implicitHeight
+        implicitWidth: column.implicitWidth
+
+        Layout.preferredWidth: showText ? Kirigami.Units.gridUnit * 12 : Kirigami.Units.iconSizes.smallMedium * 1.6
+        Layout.preferredHeight: implicitHeight
+        Layout.minimumWidth: Layout.preferredWidth
+        Layout.minimumHeight: Layout.preferredHeight
+        Layout.maximumWidth: Layout.preferredWidth
+        Layout.maximumHeight: Screen.height / 2
+
+        Sessions.SessionManagement {
+            id: sm
+        }
+
+        Sessions.SessionsModel {
+            id: sessionsModel
+        }
+
+        ColumnLayout {
+            id: column
+
+            anchors.fill: parent
+            spacing: 0
+
+            UserListDelegate {
+                id: currentUserItem
+                text: root.displayedName
+                subText: i18n("Current user")
+                source: root.avatarIcon
+                hoverEnabled: false
+                visible: showUsers
+            }
+
+            PlasmaComponents.ScrollView {
+                id: scroll
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+                PlasmaComponents.ScrollBar.horizontal.policy: PlasmaComponents.ScrollBar.AlwaysOff
+
+                ListView {
+                    id: userList
+                    model: sessionsModel
+
+                    focus: true
+                    interactive: true
+                    keyNavigationWraps: true
+
+                    delegate: UserListDelegate {
+                        width: ListView.view.width
+
+                        activeFocusOnTab: true
+
+                        text: {
+                            if (!model.session) {
+                                return i18nc("Nobody logged in on that session", "Unused")
+                            }
+
+                            if (model.realName && root.showFullName) {
+                                return model.realName
+                            }
+
+                            return model.name
+                        }
+                        source: model.icon
+
+                        KeyNavigation.up: index === 0 ? currentUserItem.nextItemInFocusChain() : userList.itemAtIndex(index - 1)
+                        KeyNavigation.down: index === userList.count - 1 ? newSessionButton : userList.itemAtIndex(index + 1)
+
+                        Accessible.description: i18nc("@action:button", "Switch to User %1", text)
+
+                        onClicked: sessionsModel.switchUser(model.vtNumber, sessionsModel.shouldLock)
+                    }
+                }
+            }
+
+            ActionListDelegate {
+                id: newSessionButton
+                text: showText ? i18nc("@action", "New Session") : ""
+                icon.name: "system-switch-user"
+                visible: sessionsModel.canStartNewSession && showNewSession
+                KeyNavigation.up: userList.count > 0 ? userList.itemAtIndex(userList.count - 1) : currentUserItem.nextItemInFocusChain()
+                KeyNavigation.down: lockScreenButton
+                onClicked: sessionsModel.startNewSession(sessionsModel.shouldLock)
+            }
+
+            ActionListDelegate {
+                id: lockScreenButton
+                text: showText ? i18nc("@action", "Lock Screen") : ""
+                icon.name: "system-lock-screen"
+                visible: sm.canLock && showLockScreen
+                KeyNavigation.up: newSessionButton
+                KeyNavigation.down: leaveButton
+                onClicked: sm.lock()
+            }
+
+            ActionListDelegate {
+                id: leaveButton
+                text: showText ? i18nc("@action", "Log Out") : ""
+                icon.name: "system-log-out"
+                visible: sm.canLogout && showLogOut
+                KeyNavigation.up: lockScreenButton
+                onClicked: sm.requestLogout(0) // do not show the Leave screen
+            }
+
+            ActionListDelegate {
+                id: rebootButton
+                text: showText ? i18nc("@action", "Reboot...") : ""
+                icon.name: "system-reboot"
+                visible: sm.canReboot && showRestart
+                onClicked: sm.requestReboot(0) // do not show the Leave screen
+            }
+
+            ActionListDelegate {
+                id: shutdownButton
+                text: showText ? i18nc("@action", "Shutdown") : ""
+                icon.name: "system-shutdown"
+                visible: sm.canShutdown && showShutdown
+                onClicked: sm.requestShutdown(0) // do not show the Leave screen
+            }
+
+            ActionListDelegate {
+                id: suspendButton
+                text: showText ? i18nc("@action", "Suspend") : ""
+                icon.name: "system-suspend"
+                visible: sm.canSuspend && showSuspend
+                onClicked: sm.suspend()
+            }
+
+            ActionListDelegate {
+                id: hybernateButton
+                text: showText ? i18nc("@action", "Hybernate") : ""
+                icon.name: "system-suspend-hibernate"
+                visible: sm.canSuspendThenHibernate && showHybernate
+                onClicked: sm.suspendThenHibernate()
+            }
+        }
+
+        Connections {
+            target: root
+            function onExpandedChanged() {
+                if (root.expanded) {
+                    sessionsModel.reload();
+                }
+            }
+        }
+    }
 }

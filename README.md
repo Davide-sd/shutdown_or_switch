@@ -1,13 +1,15 @@
-# Shutdown or Switch widget for KDE 5
+# Shutdown or Switch widget for KDE Plasma 6
 
-Plasma 5 widget for quick accessing the leave options (shutdown, reboot, suspend, logout) or to quickly switch between different users.
+A minimalistic KDE Plasma 6 widget for quick accessing the leave options (shutdown, reboot, suspend, logout, lockscreen, etc.) or to quickly switch between different users.
+
+<div>
+<img src="https://raw.githubusercontent.com/Davide-sd/shutdown_or_switch/master/imgs/img1.png" width=250/>
+<img src="https://raw.githubusercontent.com/Davide-sd/shutdown_or_switch/master/imgs/img2.png" width=250/>
+</div>
 
 This is a customized version of the widget [user switcher](https://github.com/KDE/kdeplasma-addons/tree/master/applets/userswitcher) created by Kai Uwe Broulik.
 
-## TODO
-
-1. Adjust the `FullRepresentation.qml` and `ListDelegate.qml` to an horizontal orientation when the plasmoid form factor is vertical.
-2. Adjust the width of the `ListDelegate` elements based on the labels width.
+*Master* branch deals with Plasma 6. *plasma5* branch contains the code for Plasma 5.
 
 ## Installation
 
