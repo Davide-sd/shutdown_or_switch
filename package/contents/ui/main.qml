@@ -30,7 +30,7 @@ PlasmoidItem {
     readonly property bool showRestart: Plasmoid.configuration.showRestart
     readonly property bool showShutdown: Plasmoid.configuration.showShutdown
     readonly property bool showSuspend: Plasmoid.configuration.showSuspend
-    readonly property bool showHybernate: Plasmoid.configuration.showHybernate
+    readonly property bool showHibernate: Plasmoid.configuration.showHibernate
     readonly property bool showNewSession: Plasmoid.configuration.showNewSession
     readonly property bool showUsers: Plasmoid.configuration.showUsers
     readonly property bool showText: Plasmoid.configuration.showText
@@ -242,10 +242,10 @@ PlasmoidItem {
             }
 
             ActionListDelegate {
-                id: hybernateButton
-                text: showText ? i18nc("@action", "Hybernate") : ""
+                id: hibernateButton
+                text: showText ? i18nc("@action", "Hibernate") : ""
                 icon.name: "system-suspend-hibernate"
-                visible: sm.canSuspendThenHibernate && showHybernate
+                visible: sm.canSuspendThenHibernate && showHibernate
                 onClicked: sm.suspendThenHibernate()
             }
         }
