@@ -253,7 +253,7 @@ PlasmoidItem {
             ActionListDelegate {
                 id: hybernateButton
                 text: showText ? i18nc("@action", "Hybernate") : ""
-                icon.name: "hibernate"
+                icon.name: "system-hibernate"
                 visible: sm.canHibernate && showHybernate
                 onClicked: sm.hibernate()
             }
