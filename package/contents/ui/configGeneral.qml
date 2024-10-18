@@ -23,6 +23,7 @@ KCM.SimpleKCM {
     property alias cfg_showRestart: showRestart.checked
     property alias cfg_showShutdown: showShutdown.checked
     property alias cfg_showSuspend: showSuspend.checked
+    property alias cfg_showSuspendThenHybernate: showSuspendThenHybernate.checked
     property alias cfg_showHybernate: showHybernate.checked
     property alias cfg_showUsers: showUsers.checked
     property alias cfg_showText: showText.checked
@@ -164,6 +165,11 @@ KCM.SimpleKCM {
         QtControls.CheckBox {
             id: showSuspend
             text: i18nc("@option:check", "Suspend")
+        }
+
+        QtControls.CheckBox {
+            id: showSuspendThenHybernate
+            text: i18nc("@option:check", "Suspend then Hybernate")
         }
 
         QtControls.CheckBox {
