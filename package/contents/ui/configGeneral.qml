@@ -17,6 +17,9 @@ KCM.SimpleKCM {
     property bool cfg_showIcon
     property bool cfg_showName
     property bool cfg_showFullName
+    property alias cfg_shutdownConfirmation: shutdownConfirmation.currentIndex
+    property alias cfg_rebootConfirmation: rebootConfirmation.currentIndex
+    property alias cfg_logoutConfirmation: logoutConfirmation.currentIndex
     property alias cfg_showNewSession: showNewSession.checked
     property alias cfg_showLockScreen: showLockScreen.checked
     property alias cfg_showLogOut: showLogOut.checked
@@ -176,6 +179,23 @@ KCM.SimpleKCM {
             id: showText
             text: ""
         }
-
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Shutdown:")
+            id: shutdownConfirmation
+            model: ["Follow System","Don't ask","Always ask"]
+        }
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Reboot:")
+            id: rebootConfirmation
+            model: ["Follow System","Don't ask","Always ask"]
+        }
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Logout:")
+            id: logoutConfirmation
+            model: ["Follow System","Don't ask","Always ask"]
+        }
     }
 }

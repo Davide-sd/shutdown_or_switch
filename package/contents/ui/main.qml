@@ -34,13 +34,16 @@ PlasmoidItem {
     readonly property bool showNewSession: Plasmoid.configuration.showNewSession
     readonly property bool showUsers: Plasmoid.configuration.showUsers
     readonly property bool showText: Plasmoid.configuration.showText
+    readonly property int shutdownConfirmation: Plasmoid.configuration.shutdownConfirmation -1
+    readonly property int rebootConfirmation: Plasmoid.configuration.rebootConfirmation -1
+    readonly property int logoutConfirmation: Plasmoid.configuration.logoutConfirmation -1
 
     readonly property bool isVertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     readonly property bool inPanel: (Plasmoid.location === PlasmaCore.Types.TopEdge
         || Plasmoid.location === PlasmaCore.Types.RightEdge
         || Plasmoid.location === PlasmaCore.Types.BottomEdge
         || Plasmoid.location === PlasmaCore.Types.LeftEdge)
-    
+
     readonly property string avatarIcon: kuser.faceIconUrl.toString()
     readonly property string displayedName: showFullName ? kuser.fullName : kuser.loginName
 
@@ -214,7 +217,7 @@ PlasmoidItem {
                 icon.name: "system-log-out"
                 visible: sm.canLogout && showLogOut
                 KeyNavigation.up: lockScreenButton
-                onClicked: sm.requestLogout(0) // do not show the Leave screen
+                onClicked: sm.requestLogout(logoutConfirmation)
             }
 
             ActionListDelegate {
@@ -222,7 +225,7 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Reboot...") : ""
                 icon.name: "system-reboot"
                 visible: sm.canReboot && showRestart
-                onClicked: sm.requestReboot(0) // do not show the Leave screen
+                onClicked: sm.requestReboot(rebootConfirmation)
             }
 
             ActionListDelegate {
@@ -230,7 +233,7 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Shutdown") : ""
                 icon.name: "system-shutdown"
                 visible: sm.canShutdown && showShutdown
-                onClicked: sm.requestShutdown(0) // do not show the Leave screen
+                onClicked: sm.requestShutdown(shutdownConfirmation)
             }
 
             ActionListDelegate {
