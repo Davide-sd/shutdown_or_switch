@@ -25,6 +25,7 @@ PlasmoidItem {
     readonly property bool showIcon: Plasmoid.configuration.showIcon
     readonly property bool showName: Plasmoid.configuration.showName
     readonly property bool showFullName: Plasmoid.configuration.showFullName
+    readonly property string icon: Plasmoid.configuration.icon
     readonly property bool showLockScreen: Plasmoid.configuration.showLockScreen
     readonly property bool showLogOut: Plasmoid.configuration.showLogOut
     readonly property bool showRestart: Plasmoid.configuration.showRestart
@@ -87,7 +88,7 @@ PlasmoidItem {
 
             Kirigami.Icon {
                 id: shutdownIcon
-                source: "system-shutdown"
+                source: root.icon
                 anchors.verticalCenter: parent.verticalCenter
                 height: compactRoot.height - Math.round(Kirigami.Units.smallSpacing / 2)
                 width: height

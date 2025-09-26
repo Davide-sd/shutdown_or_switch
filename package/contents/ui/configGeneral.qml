@@ -12,6 +12,7 @@ import QtQuick.Dialogs
 
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
+import org.kde.iconthemes as KIconThemes
 
 KCM.SimpleKCM {
     property bool cfg_showIcon
@@ -211,5 +212,13 @@ KCM.SimpleKCM {
             currentIndex: 1
         }
 
+    }
+
+    KIconThemes.IconDialog {
+        id: iconDialog
+
+        onIconNameChanged: iconName => {
+            cfg_icon = iconName;
+        }
     }
 }
