@@ -17,12 +17,16 @@ KCM.SimpleKCM {
     property bool cfg_showIcon
     property bool cfg_showName
     property bool cfg_showFullName
+    property alias cfg_shutdownConfirmation: shutdownConfirmation.currentIndex
+    property alias cfg_rebootConfirmation: rebootConfirmation.currentIndex
+    property alias cfg_logoutConfirmation: logoutConfirmation.currentIndex
     property alias cfg_showNewSession: showNewSession.checked
     property alias cfg_showLockScreen: showLockScreen.checked
     property alias cfg_showLogOut: showLogOut.checked
     property alias cfg_showRestart: showRestart.checked
     property alias cfg_showShutdown: showShutdown.checked
     property alias cfg_showSuspend: showSuspend.checked
+    property alias cfg_showSuspendThenHybernate: showSuspendThenHybernate.checked
     property alias cfg_showHibernate: showHibernate.checked
     property alias cfg_showUsers: showUsers.checked
     property alias cfg_showText: showText.checked
@@ -167,6 +171,11 @@ KCM.SimpleKCM {
         }
 
         QtControls.CheckBox {
+            id: showSuspendThenHybernate
+            text: i18nc("@option:check", "Suspend then Hybernate")
+        }
+
+        QtControls.CheckBox {
             id: showHibernate
             text: i18nc("@option:check", "Hibernate")
         }
@@ -175,6 +184,31 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18nc("@title:label", "Show text on Menu Entries:")
             id: showText
             text: ""
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Shutdown:")
+            id: shutdownConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Reboot:")
+            id: rebootConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Logout:")
+            id: logoutConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
         }
 
     }
