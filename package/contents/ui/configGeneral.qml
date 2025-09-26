@@ -17,6 +17,9 @@ KCM.SimpleKCM {
     property bool cfg_showIcon
     property bool cfg_showName
     property bool cfg_showFullName
+    property alias cfg_shutdownConfirmation: shutdownConfirmation.currentIndex
+    property alias cfg_rebootConfirmation: rebootConfirmation.currentIndex
+    property alias cfg_logoutConfirmation: logoutConfirmation.currentIndex
     property alias cfg_showNewSession: showNewSession.checked
     property alias cfg_showLockScreen: showLockScreen.checked
     property alias cfg_showLogOut: showLogOut.checked
@@ -175,6 +178,31 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18nc("@title:label", "Show text on Menu Entries:")
             id: showText
             text: ""
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Shutdown:")
+            id: shutdownConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Reboot:")
+            id: rebootConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
+        }
+
+        QtControls.ComboBox {
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Logout:")
+            id: logoutConfirmation
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
         }
 
     }
