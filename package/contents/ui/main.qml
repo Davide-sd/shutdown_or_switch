@@ -34,9 +34,9 @@ PlasmoidItem {
     readonly property bool showNewSession: Plasmoid.configuration.showNewSession
     readonly property bool showUsers: Plasmoid.configuration.showUsers
     readonly property bool showText: Plasmoid.configuration.showText
-    readonly property int shutdownConfirmation: Plasmoid.configuration.shutdownConfirmation -1
-    readonly property int rebootConfirmation: Plasmoid.configuration.rebootConfirmation -1
-    readonly property int logoutConfirmation: Plasmoid.configuration.logoutConfirmation -1
+    readonly property int shutdownConfirmation: Plasmoid.configuration.shutdownConfirmation - 1
+    readonly property int rebootConfirmation: Plasmoid.configuration.rebootConfirmation - 1
+    readonly property int logoutConfirmation: Plasmoid.configuration.logoutConfirmation - 1
 
     readonly property bool isVertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     readonly property bool inPanel: (Plasmoid.location === PlasmaCore.Types.TopEdge

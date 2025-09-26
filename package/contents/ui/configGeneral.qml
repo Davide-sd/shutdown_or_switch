@@ -179,23 +179,31 @@ KCM.SimpleKCM {
             id: showText
             text: ""
         }
+
         Item {
             Kirigami.FormData.isSection: true
         }
+
         QtControls.ComboBox {
-            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Shutdown:")
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Shutdown:")
             id: shutdownConfirmation
-            model: ["Follow System","Don't ask","Always ask"]
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
         }
+
         QtControls.ComboBox {
-            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Reboot:")
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Reboot:")
             id: rebootConfirmation
-            model: ["Follow System","Don't ask","Always ask"]
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
         }
+
         QtControls.ComboBox {
-            Kirigami.FormData.label: i18nc("@title:label", "Ask for confirmation on Logout:")
+            Kirigami.FormData.label: i18nc("@title:label", "Confirmation on Logout:")
             id: logoutConfirmation
-            model: ["Follow System","Don't ask","Always ask"]
+            model: ["Follow System", "Don't ask", "Always ask"]
+            currentIndex: 1
         }
+
     }
 }
