@@ -48,6 +48,15 @@
     <entry name="showText" type="Bool">
         <default>true</default>
     </entry>
+    <entry name="shutdownConfirmation" type="Int">
+        <default>1</default>
+    </entry>
+    <entry name="rebootConfirmation" type="Int">
+        <default>1</default>
+    </entry>
+    <entry name="logoutConfirmation" type="Int">
+        <default>1</default>
+    </entry>
   </group>
 
 </kcfg>
