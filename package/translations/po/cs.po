@@ -24,7 +24,7 @@ msgstr "Vypnout či přepnout"
 
 #: ../metadata.json
 msgid "Quickly switch between different users and access shutdown options"
-msgstr "Rychle přepínejte mezi jednotlivými uživateli a přistupujte k možnostem vypnutí systému."
+msgstr "Rychlé přepínání mezi uživateli a přístup k možnostem vypnutí systému"
 
 #: ../contents/config/config.qml
 msgctxt "@title"
@@ -124,7 +124,7 @@ msgstr "Hibernovat"
 #: ../contents/ui/configGeneral.qml
 msgctxt "@title:label"
 msgid "Show text on Menu Entries:"
-msgstr "Zobrazit text"
+msgstr "Zobrazit text u položek nabídky:"
 
 #: ../contents/ui/configGeneral.qml
 msgctxt "@title:label"
@@ -177,7 +177,7 @@ msgstr "Odhlásit se"
 #: ../contents/ui/main.qml
 msgctxt "@action"
 msgid "Reboot..."
-msgstr "Restartovat"
+msgstr "Restartova...t"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"
