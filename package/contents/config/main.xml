@@ -57,6 +57,12 @@
     <entry name="logoutConfirmation" type="Int">
         <default>1</default>
     </entry>
+    <entry name="keyUp" type="String">
+        <default>Up</default>
+    </entry>
+    <entry name="keyDown" type="String">
+        <default>Down</default>
+    </entry>
   </group>
 
 </kcfg>

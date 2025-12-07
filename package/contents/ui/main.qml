@@ -39,6 +39,8 @@ PlasmoidItem {
     readonly property int shutdownConfirmation: Plasmoid.configuration.shutdownConfirmation - 1
     readonly property int rebootConfirmation: Plasmoid.configuration.rebootConfirmation - 1
     readonly property int logoutConfirmation: Plasmoid.configuration.logoutConfirmation - 1
+    readonly property string keyUp: Plasmoid.configuration.keyUp
+    readonly property string keyDown: Plasmoid.configuration.keyDown
 
     readonly property bool isVertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     readonly property bool inPanel: (Plasmoid.location === PlasmaCore.Types.TopEdge
@@ -172,6 +174,8 @@ PlasmoidItem {
                 source: root.avatarIcon
                 hoverEnabled: false
                 visible: showUsers
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
             }
 
             PlasmaComponents.ScrollView {
@@ -195,6 +199,8 @@ PlasmoidItem {
                         width: ListView.view.width
 
                         activeFocusOnTab: true
+                        customKeyUp: root.keyUp
+                        customKeyDown: root.keyDown
 
                         text: {
                             if (!model.session) {
@@ -224,6 +230,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "New Session") : ""
                 icon.name: "system-switch-user"
                 visible: sessionsModel.canStartNewSession && showNewSession
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: userList.count > 0 ? userList.itemAtIndex(userList.count - 1) : currentUserItem.nextItemInFocusChain()
                 KeyNavigation.down: lockScreenButton
                 onClicked: sessionsModel.startNewSession(sessionsModel.shouldLock)
@@ -234,6 +242,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Lock Screen") : ""
                 icon.name: "system-lock-screen"
                 visible: sm.canLock && showLockScreen
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: newSessionButton
                 KeyNavigation.down: fullRoot.findNextVisible(1)
                 onClicked: sm.lock()
@@ -244,6 +254,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Log Out") : ""
                 icon.name: "system-log-out"
                 visible: sm.canLogout && showLogOut
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(2) ?? newSessionButton
                 KeyNavigation.down: fullRoot.findNextVisible(2)
                 onClicked: sm.requestLogout(logoutConfirmation)
@@ -254,6 +266,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Reboot...") : ""
                 icon.name: "system-reboot"
                 visible: sm.canReboot && showRestart
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(3) ?? newSessionButton
                 KeyNavigation.down: fullRoot.findNextVisible(3)
                 onClicked: sm.requestReboot(rebootConfirmation)
@@ -264,6 +278,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Shutdown") : ""
                 icon.name: "system-shutdown"
                 visible: sm.canShutdown && showShutdown
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(4) ?? newSessionButton
                 KeyNavigation.down: fullRoot.findNextVisible(4)
                 onClicked: sm.requestShutdown(shutdownConfirmation)
@@ -274,6 +290,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend") : ""
                 icon.name: "system-suspend"
                 visible: sm.canSuspend && showSuspend
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(5) ?? newSessionButton
                 KeyNavigation.down: fullRoot.findNextVisible(5)
                 onClicked: sm.suspend()
@@ -284,6 +302,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend then Hibernate") : ""
                 icon.name: "system-suspend-hibernate"
                 visible: sm.canSuspendThenHibernate && showSuspendThenHibernate
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(6) ?? newSessionButton
                 KeyNavigation.down: hibernateButton
                 onClicked: sm.suspendThenHibernate()
@@ -294,6 +314,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Hibernate") : ""
                 icon.name: "system-hibernate"
                 visible: sm.canHibernate && showHibernate
+                customKeyUp: root.keyUp
+                customKeyDown: root.keyDown
                 KeyNavigation.up: fullRoot.findPrevVisible(7) ?? newSessionButton
                 onClicked: sm.hibernate()
             }
