@@ -219,6 +219,7 @@ PlasmoidItem {
                 icon.name: "system-log-out"
                 visible: sm.canLogout && showLogOut
                 KeyNavigation.up: lockScreenButton
+                KeyNavigation.down: rebootButton
                 onClicked: sm.requestLogout(logoutConfirmation)
             }
 
@@ -227,6 +228,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Reboot...") : ""
                 icon.name: "system-reboot"
                 visible: sm.canReboot && showRestart
+                KeyNavigation.up: leaveButton
+                KeyNavigation.down: shutdownButton
                 onClicked: sm.requestReboot(rebootConfirmation)
             }
 
@@ -235,6 +238,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Shutdown") : ""
                 icon.name: "system-shutdown"
                 visible: sm.canShutdown && showShutdown
+                KeyNavigation.up: rebootButton
+                KeyNavigation.down: suspendButton
                 onClicked: sm.requestShutdown(shutdownConfirmation)
             }
 
@@ -243,6 +248,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend") : ""
                 icon.name: "system-suspend"
                 visible: sm.canSuspend && showSuspend
+                KeyNavigation.up: shutdownButton
+                KeyNavigation.down: suspendThenHibernateButton
                 onClicked: sm.suspend()
             }
 
@@ -251,6 +258,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend then Hibernate") : ""
                 icon.name: "system-suspend-hibernate"
                 visible: sm.canSuspendThenHibernate && showSuspendThenHibernate
+                KeyNavigation.up: suspendButton
+                KeyNavigation.down: hibernateButton
                 onClicked: sm.suspendThenHibernate()
             }
 
@@ -259,6 +268,7 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Hibernate") : ""
                 icon.name: "system-hibernate"
                 visible: sm.canHibernate && showHibernate
+                KeyNavigation.up: suspendThenHibernateButton
                 onClicked: sm.hibernate()
             }
         }
@@ -268,7 +278,31 @@ PlasmoidItem {
             function onExpandedChanged() {
                 if (root.expanded) {
                     sessionsModel.reload();
+                    // Set initial focus to the first visible item
+                    setInitialFocus();
                 }
+            }
+        }
+
+        function setInitialFocus() {
+            if (showUsers && currentUserItem.visible) {
+                currentUserItem.forceActiveFocus();
+            } else if (showNewSession && newSessionButton.visible) {
+                newSessionButton.forceActiveFocus();
+            } else if (showLockScreen && lockScreenButton.visible) {
+                lockScreenButton.forceActiveFocus();
+            } else if (showLogOut && leaveButton.visible) {
+                leaveButton.forceActiveFocus();
+            } else if (showRestart && rebootButton.visible) {
+                rebootButton.forceActiveFocus();
+            } else if (showShutdown && shutdownButton.visible) {
+                shutdownButton.forceActiveFocus();
+            } else if (showSuspend && suspendButton.visible) {
+                suspendButton.forceActiveFocus();
+            } else if (showSuspendThenHibernate && suspendThenHibernateButton.visible) {
+                suspendThenHibernateButton.forceActiveFocus();
+            } else if (showHibernate && hibernateButton.visible) {
+                hibernateButton.forceActiveFocus();
             }
         }
     }

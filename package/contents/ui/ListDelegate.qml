@@ -31,6 +31,9 @@ PlasmaComponents3.ItemDelegate {
         forceActiveFocus();
     }
 
+    Keys.onReturnPressed: clicked()
+    Keys.onEnterPressed: clicked()
+
     contentItem: RowLayout {
         id: row
 
