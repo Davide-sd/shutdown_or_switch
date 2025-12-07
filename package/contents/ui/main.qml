@@ -133,6 +133,32 @@ PlasmoidItem {
             id: sessionsModel
         }
 
+        // Action buttons array for keyboard navigation
+        readonly property list<Item> actionButtons: [
+            newSessionButton,
+            lockScreenButton,
+            leaveButton,
+            rebootButton,
+            shutdownButton,
+            suspendButton,
+            suspendThenHibernateButton,
+            hibernateButton
+        ]
+
+        function findNextVisible(fromIndex) {
+            for (let i = fromIndex + 1; i < actionButtons.length; i++) {
+                if (actionButtons[i].visible) return actionButtons[i];
+            }
+            return null;
+        }
+
+        function findPrevVisible(fromIndex) {
+            for (let i = fromIndex - 1; i >= 0; i--) {
+                if (actionButtons[i].visible) return actionButtons[i];
+            }
+            return null;
+        }
+
         ColumnLayout {
             id: column
 
@@ -209,7 +235,7 @@ PlasmoidItem {
                 icon.name: "system-lock-screen"
                 visible: sm.canLock && showLockScreen
                 KeyNavigation.up: newSessionButton
-                KeyNavigation.down: leaveButton
+                KeyNavigation.down: fullRoot.findNextVisible(1)
                 onClicked: sm.lock()
             }
 
@@ -218,8 +244,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Log Out") : ""
                 icon.name: "system-log-out"
                 visible: sm.canLogout && showLogOut
-                KeyNavigation.up: lockScreenButton
-                KeyNavigation.down: rebootButton
+                KeyNavigation.up: fullRoot.findPrevVisible(2) ?? newSessionButton
+                KeyNavigation.down: fullRoot.findNextVisible(2)
                 onClicked: sm.requestLogout(logoutConfirmation)
             }
 
@@ -228,8 +254,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Reboot...") : ""
                 icon.name: "system-reboot"
                 visible: sm.canReboot && showRestart
-                KeyNavigation.up: leaveButton
-                KeyNavigation.down: shutdownButton
+                KeyNavigation.up: fullRoot.findPrevVisible(3) ?? newSessionButton
+                KeyNavigation.down: fullRoot.findNextVisible(3)
                 onClicked: sm.requestReboot(rebootConfirmation)
             }
 
@@ -238,8 +264,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Shutdown") : ""
                 icon.name: "system-shutdown"
                 visible: sm.canShutdown && showShutdown
-                KeyNavigation.up: rebootButton
-                KeyNavigation.down: suspendButton
+                KeyNavigation.up: fullRoot.findPrevVisible(4) ?? newSessionButton
+                KeyNavigation.down: fullRoot.findNextVisible(4)
                 onClicked: sm.requestShutdown(shutdownConfirmation)
             }
 
@@ -248,8 +274,8 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend") : ""
                 icon.name: "system-suspend"
                 visible: sm.canSuspend && showSuspend
-                KeyNavigation.up: shutdownButton
-                KeyNavigation.down: suspendThenHibernateButton
+                KeyNavigation.up: fullRoot.findPrevVisible(5) ?? newSessionButton
+                KeyNavigation.down: fullRoot.findNextVisible(5)
                 onClicked: sm.suspend()
             }
 
@@ -258,7 +284,7 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Suspend then Hibernate") : ""
                 icon.name: "system-suspend-hibernate"
                 visible: sm.canSuspendThenHibernate && showSuspendThenHibernate
-                KeyNavigation.up: suspendButton
+                KeyNavigation.up: fullRoot.findPrevVisible(6) ?? newSessionButton
                 KeyNavigation.down: hibernateButton
                 onClicked: sm.suspendThenHibernate()
             }
@@ -268,7 +294,7 @@ PlasmoidItem {
                 text: showText ? i18nc("@action", "Hibernate") : ""
                 icon.name: "system-hibernate"
                 visible: sm.canHibernate && showHibernate
-                KeyNavigation.up: suspendThenHibernateButton
+                KeyNavigation.up: fullRoot.findPrevVisible(7) ?? newSessionButton
                 onClicked: sm.hibernate()
             }
         }
@@ -285,24 +311,12 @@ PlasmoidItem {
         }
 
         function setInitialFocus() {
-            if (showUsers && currentUserItem.visible) {
-                currentUserItem.forceActiveFocus();
-            } else if (showNewSession && newSessionButton.visible) {
-                newSessionButton.forceActiveFocus();
-            } else if (showLockScreen && lockScreenButton.visible) {
-                lockScreenButton.forceActiveFocus();
-            } else if (showLogOut && leaveButton.visible) {
-                leaveButton.forceActiveFocus();
-            } else if (showRestart && rebootButton.visible) {
-                rebootButton.forceActiveFocus();
-            } else if (showShutdown && shutdownButton.visible) {
-                shutdownButton.forceActiveFocus();
-            } else if (showSuspend && suspendButton.visible) {
-                suspendButton.forceActiveFocus();
-            } else if (showSuspendThenHibernate && suspendThenHibernateButton.visible) {
-                suspendThenHibernateButton.forceActiveFocus();
-            } else if (showHibernate && hibernateButton.visible) {
-                hibernateButton.forceActiveFocus();
+            // Focus the first visible action button
+            for (let i = 0; i < actionButtons.length; i++) {
+                if (actionButtons[i].visible) {
+                    actionButtons[i].forceActiveFocus();
+                    return;
+                }
             }
         }
     }
