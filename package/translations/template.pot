@@ -175,7 +175,7 @@ msgstr ""
 
 #: ../contents/ui/main.qml
 msgctxt "@action"
-msgid "Reboot..."
+msgid "Reboot"
 msgstr ""
 
 #: ../contents/ui/main.qml

@@ -175,8 +175,8 @@ msgstr "Wyloguj"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"
-msgid "Reboot..."
-msgstr "Uruchom ponownie..."
+msgid "Reboot"
+msgstr "Uruchom ponownie"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"

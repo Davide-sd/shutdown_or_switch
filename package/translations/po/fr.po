@@ -176,8 +176,8 @@ msgstr "Se déconnecter"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"
-msgid "Reboot..."
-msgstr "Redémarrer..."
+msgid "Reboot"
+msgstr "Redémarrer"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"

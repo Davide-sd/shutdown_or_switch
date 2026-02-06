@@ -176,8 +176,8 @@ msgstr "Odhlásit se"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"
-msgid "Reboot..."
-msgstr "Restartovat..."
+msgid "Reboot"
+msgstr "Restartovat"
 
 #: ../contents/ui/main.qml
 msgctxt "@action"

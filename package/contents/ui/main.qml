@@ -224,7 +224,7 @@ PlasmoidItem {
 
             ActionListDelegate {
                 id: rebootButton
-                text: showText ? i18nc("@action", "Reboot...") : ""
+                text: showText ? i18nc("@action", "Reboot") : ""
                 icon.name: "system-reboot"
                 visible: sm.canReboot && showRestart
                 onClicked: sm.requestReboot(rebootConfirmation)
