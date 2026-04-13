@@ -151,7 +151,7 @@ msgstr "Utente Corrente"
 #: ../contents/ui/main.qml
 msgctxt "Nobody logged in on that session"
 msgid "Unused"
-msgid "Non Utilizzato"
+msgstr "Non Utilizzato"
 
 #: ../contents/ui/main.qml
 msgctxt "@action:button"
