@@ -19,6 +19,7 @@
         "Description[it]": "Accedi alle opzioni di spegnimento o di cambio utente",
         "Description[nl]": "Wissel snel van gebruiker of kies één van de afsluitopties",
         "Description[pl]": "Szybko przełączaj się między użytkownikami i uzyskaj dostęp do opcji wyłączania",
+        "Description[pt]": "Alterne rapidamente entre diferentes usuários e acesse opções de desligamento",
         "Icon": "system-shutdown",
         "Id": "org.kde.plasma.shutdownorswitch",
         "License": "GPL-2.0+",
@@ -29,6 +30,7 @@
         "Name[it]": "Spegni o cambia utente",
         "Name[nl]": "Afsluiten of gebruiker wisselen",
         "Name[pl]": "Wyłącz lub przełącz",
+        "Name[pt]": "Desligar ou Alternar",
         "ServiceTypes": [
             "Plasma/Applet"
         ],
