@@ -123,7 +123,7 @@ msgstr "Hibernar"
 #: ../contents/ui/configGeneral.qml
 msgctxt "@title:label"
 msgid "Show text on Menu Entries:"
-msgstr "Mostrar texto opções do menu"
+msgstr "Mostrar texto opções do menu:"
 
 #: ../contents/ui/configGeneral.qml
 msgctxt "@title:label"
