@@ -14,6 +14,7 @@ import org.kde.config as KConfig  // KAuthorized.authorizeControlModule
 import org.kde.coreaddons as KCoreAddons // kuser
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.plasma.plasmoid
 
 import org.kde.plasma.private.sessions as Sessions
@@ -31,6 +32,7 @@ PlasmoidItem {
     readonly property bool showRestart: Plasmoid.configuration.showRestart
     readonly property bool showShutdown: Plasmoid.configuration.showShutdown
     readonly property bool showSuspend: Plasmoid.configuration.showSuspend
+    readonly property bool showTurnOffDisplays: Plasmoid.configuration.showTurnOffDisplays
     readonly property bool showSuspendThenHibernate: Plasmoid.configuration.showSuspendThenHibernate
     readonly property bool showHibernate: Plasmoid.configuration.showHibernate
     readonly property bool showNewSession: Plasmoid.configuration.showNewSession
@@ -131,6 +133,18 @@ PlasmoidItem {
 
         Sessions.SessionsModel {
             id: sessionsModel
+        }
+
+        Plasma5Support.DataSource {
+            id: executable
+            engine: "executable"
+            connectedSources: []
+            onNewData: function(sourceName, data) {
+                disconnectSource(sourceName)
+            }
+            function exec(cmd) {
+                connectSource(cmd)
+            }
         }
 
         ColumnLayout {
@@ -241,9 +255,17 @@ PlasmoidItem {
             ActionListDelegate {
                 id: suspendButton
                 text: showText ? i18nc("@action", "Suspend") : ""
-                icon.name: "system-suspend"
+                icon.name: Qt.resolvedUrl("../icons/suspend-moon.svg")
                 visible: sm.canSuspend && showSuspend
                 onClicked: sm.suspend()
+            }
+
+            ActionListDelegate {
+                id: turnOffDisplaysButton
+                text: showText ? i18nc("@action", "Turn Off Displays") : ""
+                icon.name: Qt.resolvedUrl("../icons/turn-off-displays.svg")
+                visible: showTurnOffDisplays
+                onClicked: executable.exec("kscreen-doctor --dpms off")
             }
 
             ActionListDelegate {

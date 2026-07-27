@@ -34,7 +34,7 @@
         "ServiceTypes": [
             "Plasma/Applet"
         ],
-        "Version": "1.1.5",
+        "Version": "1.1.6",
         "Website": "https://github.com/Davide-sd/shutdown_or_switch"
     },
     "X-Plasma-API-Minimum-Version": "6.0"

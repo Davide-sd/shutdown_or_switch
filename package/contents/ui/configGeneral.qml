@@ -27,6 +27,7 @@ KCM.SimpleKCM {
     property alias cfg_showRestart: showRestart.checked
     property alias cfg_showShutdown: showShutdown.checked
     property alias cfg_showSuspend: showSuspend.checked
+    property alias cfg_showTurnOffDisplays: showTurnOffDisplays.checked
     property alias cfg_showSuspendThenHibernate: showSuspendThenHibernate.checked
     property alias cfg_showHibernate: showHibernate.checked
     property alias cfg_showUsers: showUsers.checked
@@ -169,6 +170,11 @@ KCM.SimpleKCM {
         QtControls.CheckBox {
             id: showSuspend
             text: i18nc("@option:check", "Suspend")
+        }
+
+        QtControls.CheckBox {
+            id: showTurnOffDisplays
+            text: i18nc("@option:check", "Turn Off Displays")
         }
 
         QtControls.CheckBox {
